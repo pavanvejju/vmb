@@ -1,0 +1,33 @@
+<div class="d-flex" id="wrapper">
+  <!-- Sidebar -->
+  <div class="bg-light border-right" id="sidebar-wrapper">
+    <div class="sidebar-heading">VEJJU</div>
+    <div class="list-group list-group-flush">
+      <a routerLink="userList" class="list-group-item list-group-item-action bg-light" >Users</a>
+      <a routerLink="transactionList" class="list-group-item list-group-item-action bg-light">Transaction</a>
+      <a routerLink="paymentList" class="list-group-item list-group-item-action bg-light">Payment</a>
+    </div>
+  </div>
+  <!-- /#sidebar-wrapper -->
+
+  <!-- Page Content -->
+  <div id="page-content-wrapper">
+    <nav class="navbar navbar-expand-sm bg-primary navbar-dark">
+      <h2 style="text-align: center;">{{title}}</h2>      
+    </nav>
+    <div >
+      <div class="card">
+        <div class="card-body">
+          <router-outlet></router-outlet>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> 
+<!--
+<footer class="footer">
+  <div class="container">
+      <span>All Rights Reserved 2020 @VMB Enterprise</span>
+  </div>
+</footer>
+-->

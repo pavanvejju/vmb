@@ -1,0 +1,42 @@
+
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    <h2>Transaction List</h2>
+  </div>
+  <div class="panel-body">
+    <div>
+      <a routerLink="/addTransaction" class="list-group-item list-group-item-action bg-light" >Add Transaction</a>
+    </div>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Customer Name</th>
+          <th>Type</th>
+          <th>Amount</th>
+          <th>Description</th>
+          <th>Created By</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let transaction of transactionList  | async">
+          <td>{{transaction.dateStr}}</td>
+          <td>{{transaction.customerName}}</td>
+          <td>{{transaction.type}}</td>
+          <td>{{transaction.amount}}</td>         
+          <td>{{transaction.description}}</td>
+          <td>{{transaction.createdBy}}</td>
+          
+          
+          <!--
+          <td><button (click)="deleteUser(user.id)" class="btn btn-danger">Delete</button>
+              <button (click)="updateUser(user.id)" class="btn btn-info" style="margin-left: 10px">Update</button>
+              <button (click)="userDetails(user.id)" class="btn btn-info" style="margin-left: 10px">Details</button>
+          </td>
+          -->
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+

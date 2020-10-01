@@ -1,0 +1,46 @@
+
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    <h2>User List</h2>
+  </div>
+  <div class="panel-body">
+    <div>
+      <a routerLink="/add" class="list-group-item list-group-item-action bg-light" >Add User</a>
+    </div>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>First Name</th>
+          <th>Middle Name</th>
+          <th>Last Name</th>
+          <th>Email</th>
+          <th>Phone Number</th>
+          <th>Village</th>
+          <th>Mandal</th>
+          <th>Pincode</th>
+          <th>Address</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of userList | async">
+          <td>{{user.firstName}}</td>
+          <td>{{user.middleName}}</td>
+          <td>{{user.lastName}}</td>
+          <td>{{user.emailId}}</td>
+          <td>{{user.phoneNumber}}</td>
+          <td>{{user.village}}</td>
+          <td>{{user.mandal}}</td>
+          <td>{{user.pincode}}</td>
+          <td>{{user.address}}</td>
+          
+          <td><button (click)="deleteUser(user.id)" class="btn btn-danger">Delete</button>
+              <button (click)="updateUser(user.id)" class="btn btn-info" style="margin-left: 10px">Update</button>
+              <button (click)="userDetails(user.id)" class="btn btn-info" style="margin-left: 10px">Details</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+

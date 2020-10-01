@@ -1,0 +1,40 @@
+
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    <h2>Payment List</h2>
+  </div>
+  <div class="panel-body">
+   
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Start Date</th>
+          <th>End Date</th>
+          <th>Customer Name</th>
+          <th>Total Credit Amount</th>
+          <th>Current Outstanding</th>
+          <!--<th>Rate Of Interest</th>-->
+          <th>Total Installments</th>
+          <th>Pending Installments</th>
+          <th>Created By</th>
+          <th>Last Updated Date</th>          
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let payment of paymentList | async">
+          <td>{{payment.startDate}}</td>
+          <td>{{payment.endDate}}</td>
+          <td>{{payment.customerRequestDto.customerName}}</td>
+          <td>{{payment.totalCreditAmount}}</td>
+          <td>{{payment.currentOutstanding}}</td>
+          <!--<td>{{payment.rateOfInterest}}</td>-->
+          <td>{{payment.totalInstallments}}</td>
+          <td>{{payment.pendingInstallments}}</td>
+          <td>{{payment.createdBy}}</td>
+          <td>{{payment.modifiedDate}}</td>          
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
