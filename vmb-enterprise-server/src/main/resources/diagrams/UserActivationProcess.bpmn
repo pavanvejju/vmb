@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
+  <process id="UserActivationProcess" name="UserActivation" isExecutable="true">
+    <startEvent id="startevent1" name="Start"></startEvent>
+    <userTask id="statusChangeUserTask" name="Approve / Reject"></userTask>
+    <sequenceFlow id="flow1" sourceRef="startevent1" targetRef="statusChangeUserTask"></sequenceFlow>
+    <exclusiveGateway id="exclusivegateway1" name="Exclusive Gateway"></exclusiveGateway>
+    <sequenceFlow id="flow2" sourceRef="statusChangeUserTask" targetRef="exclusivegateway1"></sequenceFlow>
+    <sequenceFlow id="flow3" sourceRef="exclusivegateway1" targetRef="updateStatusServiceTask"></sequenceFlow>
+    <sequenceFlow id="flow4" sourceRef="exclusivegateway1" targetRef="updateStatusServiceTask">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${USER_STATUS}=="REJECT"]]></conditionExpression>
+    </sequenceFlow>
+    <userTask id="approvedStatus" name="Approved"></userTask>
+    <userTask id="rejectedStatus" name="Rejected"></userTask>
+    <sequenceFlow id="flow6" sourceRef="updateStatusServiceTask" targetRef="rejectedStatus"></sequenceFlow>
+    <endEvent id="endevent1" name="End"></endEvent>
+    <sequenceFlow id="flow7" sourceRef="approvedStatus" targetRef="endevent1"></sequenceFlow>
+    <endEvent id="endevent2" name="End"></endEvent>
+    <sequenceFlow id="flow8" sourceRef="rejectedStatus" targetRef="endevent2"></sequenceFlow>
+    <serviceTask id="updateStatusServiceTask" name="Status Approve" activiti:class="com.vmb.enterprise.delegate.CallExternalSystemDelegate">
+      <extensionElements>
+        <activiti:field name="USER_ID">
+          <activiti:string><![CDATA[1]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="USER_STATUS">
+          <activiti:string><![CDATA[APPROVE]]></activiti:string>
+        </activiti:field>
+      </extensionElements>
+    </serviceTask>
+    <sequenceFlow id="flow9" sourceRef="exclusivegateway1" targetRef="updateStatusServiceTask">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${USER_STATUS}=="APPROVE"]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow10" sourceRef="updateStatusServiceTask" targetRef="approvedStatus"></sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_UserActivationProcess">
+    <bpmndi:BPMNPlane bpmnElement="UserActivationProcess" id="BPMNPlane_UserActivationProcess">
+      <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="300.0" y="150.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="statusChangeUserTask" id="BPMNShape_statusChangeUserTask">
+        <omgdc:Bounds height="55.0" width="105.0" x="380.0" y="140.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="exclusivegateway1" id="BPMNShape_exclusivegateway1">
+        <omgdc:Bounds height="40.0" width="40.0" x="530.0" y="148.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="approvedStatus" id="BPMNShape_approvedStatus">
+        <omgdc:Bounds height="55.0" width="105.0" x="760.0" y="50.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="rejectedStatus" id="BPMNShape_rejectedStatus">
+        <omgdc:Bounds height="55.0" width="105.0" x="770.0" y="230.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent1" id="BPMNShape_endevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="910.0" y="60.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent2" id="BPMNShape_endevent2">
+        <omgdc:Bounds height="35.0" width="35.0" x="920.0" y="240.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="updateStatusServiceTask" id="BPMNShape_updateStatusServiceTask">
+        <omgdc:Bounds height="55.0" width="105.0" x="600.0" y="50.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
+        <omgdi:waypoint x="335.0" y="167.0"></omgdi:waypoint>
+        <omgdi:waypoint x="380.0" y="167.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow2" id="BPMNEdge_flow2">
+        <omgdi:waypoint x="485.0" y="167.0"></omgdi:waypoint>
+        <omgdi:waypoint x="530.0" y="168.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow3" id="BPMNEdge_flow3">
+        <omgdi:waypoint x="550.0" y="148.0"></omgdi:waypoint>
+        <omgdi:waypoint x="652.0" y="105.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow4" id="BPMNEdge_flow4">
+        <omgdi:waypoint x="550.0" y="148.0"></omgdi:waypoint>
+        <omgdi:waypoint x="652.0" y="105.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow6" id="BPMNEdge_flow6">
+        <omgdi:waypoint x="652.0" y="105.0"></omgdi:waypoint>
+        <omgdi:waypoint x="822.0" y="230.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow7" id="BPMNEdge_flow7">
+        <omgdi:waypoint x="865.0" y="77.0"></omgdi:waypoint>
+        <omgdi:waypoint x="910.0" y="77.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow8" id="BPMNEdge_flow8">
+        <omgdi:waypoint x="875.0" y="257.0"></omgdi:waypoint>
+        <omgdi:waypoint x="920.0" y="257.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow9" id="BPMNEdge_flow9">
+        <omgdi:waypoint x="550.0" y="148.0"></omgdi:waypoint>
+        <omgdi:waypoint x="652.0" y="105.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow10" id="BPMNEdge_flow10">
+        <omgdi:waypoint x="705.0" y="77.0"></omgdi:waypoint>
+        <omgdi:waypoint x="760.0" y="77.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>
