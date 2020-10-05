@@ -2,6 +2,8 @@ package com.vmb.enterprise.utils;
 
 import java.io.ByteArrayOutputStream;
 
+import org.apache.commons.lang3.StringUtils;
+
 import com.jcraft.jsch.ChannelExec;
 import com.jcraft.jsch.JSch;
 import com.jcraft.jsch.Session;
@@ -34,13 +36,13 @@ public class SshUtil {
 	private static String userName="ubuntu";
 	private static String host	=	"ec2-18-185-46-119.eu-central-1.compute.amazonaws.com";
 	private static int port	=	22;
-	private static String command	=	"ls -lrth";
+	private static String command	=	"cat abc.json";
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		
 		try {
-			listFolderStructure(key,userName,null,host,port);
+			listFolderStructure(key,userName,null,host,port,command);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -49,12 +51,12 @@ public class SshUtil {
 	}
 	
 	
-	public static void listFolderStructure(String key, String username, String password, 
-			  String host, int port) throws Exception {
+	public static String listFolderStructure(String key, String username, String password, 
+			  String host, int port, String command) throws Exception {
 			    
 			    Session session = null;
 			    ChannelExec channel = null;
-			    
+			    String result = null;
 			    try {
 			    	JSch ssh = new JSch();
 					ssh.addIdentity("sampletest", key.getBytes(), null, null);
@@ -62,21 +64,23 @@ public class SshUtil {
 			        session.setPassword(password);
 			        session.setConfig("StrictHostKeyChecking", "no");
 			        
-			       
+			       System.out.println("connecting");
 			        session.connect();
-			        
+			        System.out.println("connected");
 			        channel = (ChannelExec) session.openChannel("exec");
 			        channel.setCommand(command);
 			        ByteArrayOutputStream responseStream = new ByteArrayOutputStream();
 			        channel.setOutputStream(responseStream);
 			        channel.connect();
 			        
+			        String responseString = new String(responseStream.toByteArray());
+			        result	=	 responseString.substring(responseString.indexOf("{"), responseString.length()-1);
+			        System.out.println("result:::"+result);
 			        while (channel.isConnected()) {
 			            Thread.sleep(100);
 			        }
 			        
-			        String responseString = new String(responseStream.toByteArray());
-			        System.out.println(responseString);
+			        
 			    } finally {
 			        if (session != null) {
 			            session.disconnect();
@@ -85,6 +89,8 @@ public class SshUtil {
 			            channel.disconnect();
 			        }
 			    }
+			    return result;
 			}
+	
 
 }

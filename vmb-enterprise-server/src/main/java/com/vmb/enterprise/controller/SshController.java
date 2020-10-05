@@ -17,14 +17,16 @@ public class SshController {
 	
 	@PostMapping("/connect")
 	public String createCustomer(@RequestBody SSHRequestDto sshRequestDto) {
+		String result	=	"";
 		try {
-			SshUtil.listFolderStructure(sshRequestDto.getKey(),sshRequestDto.getUserName(), sshRequestDto.getPassword(), sshRequestDto.getHost(), sshRequestDto.getPort());
+			result	=	SshUtil.listFolderStructure(sshRequestDto.getKey(),sshRequestDto.getUserName(), sshRequestDto.getPassword(), sshRequestDto.getHost(), sshRequestDto.getPort(), sshRequestDto.getCommand());
+			System.out.println("result::"+result);  
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		return "CONNECTED";
+		return result;
 	}
 	
 
