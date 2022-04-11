@@ -39,4 +39,111 @@ public class Payment  implements Serializable{
 	@ManyToOne
 	@JoinColumn(name="customerId")
 	private Customer customer;
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public Date getStartDate() {
+		return startDate;
+	}
+
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
+	}
+
+	public Date getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
+	}
+
+	public BigDecimal getTotalCreditAmount() {
+		return totalCreditAmount;
+	}
+
+	public void setTotalCreditAmount(BigDecimal totalCreditAmount) {
+		this.totalCreditAmount = totalCreditAmount;
+	}
+
+	public BigDecimal getCurrentOutstanding() {
+		return currentOutstanding;
+	}
+
+	public void setCurrentOutstanding(BigDecimal currentOutstanding) {
+		this.currentOutstanding = currentOutstanding;
+	}
+
+	public BigDecimal getRateOfInterest() {
+		return rateOfInterest;
+	}
+
+	public void setRateOfInterest(BigDecimal rateOfInterest) {
+		this.rateOfInterest = rateOfInterest;
+	}
+
+	public Integer getTotalInstallments() {
+		return totalInstallments;
+	}
+
+	public void setTotalInstallments(Integer totalInstallments) {
+		this.totalInstallments = totalInstallments;
+	}
+
+	public Integer getPendingInstallments() {
+		return pendingInstallments;
+	}
+
+	public void setPendingInstallments(Integer pendingInstallments) {
+		this.pendingInstallments = pendingInstallments;
+	}
+
+	public String getCreatedBy() {
+		return createdBy;
+	}
+
+	public void setCreatedBy(String createdBy) {
+		this.createdBy = createdBy;
+	}
+
+	public Timestamp getCreatedDate() {
+		return createdDate;
+	}
+
+	public void setCreatedDate(Timestamp createdDate) {
+		this.createdDate = createdDate;
+	}
+
+	public String getModifiedBy() {
+		return modifiedBy;
+	}
+
+	public void setModifiedBy(String modifiedBy) {
+		this.modifiedBy = modifiedBy;
+	}
+
+	public Timestamp getModifiedDate() {
+		return modifiedDate;
+	}
+
+	public void setModifiedDate(Timestamp modifiedDate) {
+		this.modifiedDate = modifiedDate;
+	}
+
+	public Customer getCustomer() {
+		return customer;
+	}
+
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
+	}
+	
+	
+	
 }
