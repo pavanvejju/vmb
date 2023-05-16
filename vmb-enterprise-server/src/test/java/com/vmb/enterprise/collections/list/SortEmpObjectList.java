@@ -11,7 +11,7 @@ import com.vmb.enterprise.examples2.Employee;
 public class SortEmpObjectList {
 
 	/**
-	 * @param args
+	 * @author pavanvejju
 	 */
 	public static void main(String[] args) {
 		

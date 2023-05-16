@@ -2,8 +2,6 @@ package com.vmb.enterprise.controller;
 
 import java.util.List;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -46,12 +44,12 @@ public class TransactionController {
 	}
 
 	@PostMapping("/add")
-	public Transaction addTransaction(@Valid @RequestBody TransactionRequestDto transactionRequestDto) {
+	public Transaction addTransaction(@RequestBody TransactionRequestDto transactionRequestDto) {
 		return transactionService.saveTransaction(transactionRequestDto);
 	}
 	
 	@PostMapping("/addAll")
-	public String addTransaction(@Valid @RequestBody List<TransactionRequestDto> transactionRequestDtoList) {
+	public String addTransaction(@RequestBody List<TransactionRequestDto> transactionRequestDtoList) {
 		return transactionService.saveAllTransaction(transactionRequestDtoList);
 	}
 

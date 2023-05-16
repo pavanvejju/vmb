@@ -11,7 +11,7 @@ public class HashtablePut {
 		m.put("2", 1);
 		m.put("2", 5);
 		//m.put("d", null); // wil not accept null keys || null values
-		//m.put(null, 1); // wil not accept null keys || null values
+		//m.put(null, 1); // wil not accept null keys || null values  ==> Cannot invoke "Object.hashCode()" because "key" is null
 		System.out.println(m.put("2", 1));
 		System.out.println(m.put("1", 1));  // previous key-value will return
 		System.out.println(m);

@@ -15,7 +15,7 @@ public class Dog {
 	 
 	 @Override
 	public String toString() {
-		return color +"dog";
+		return color +" dog";
 	}
 	 
 	 @Override

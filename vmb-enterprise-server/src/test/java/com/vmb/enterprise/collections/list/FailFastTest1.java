@@ -1,6 +1,5 @@
 package com.vmb.enterprise.collections.list;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -15,7 +14,7 @@ public class FailFastTest1 {
 			l.add(3);
 			l.add(4);
 			l.add(5);
-
+	
 /*If we use for loop, we not get any ConcurrentModificationException */
 			for(int i=0;i<l.size();i++){
 				l.remove(2);

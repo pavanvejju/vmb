@@ -4,8 +4,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -50,20 +48,20 @@ public class CustomerController {
 	}
 
 	@PostMapping("/add")
-	public String createCustomer(@Valid @RequestBody CustomerRequestDto customerRequestDto ) {
+	public String createCustomer(@RequestBody CustomerRequestDto customerRequestDto ) {
 		customerService.save(customerRequestDto);
 		
 		return "Success";
 	}
 	
 	@PostMapping("/addAll")
-	public String createCustomers(@Valid @RequestBody List<CustomerRequestDto> customerRequestDtoList) {
+	public String createCustomers(@RequestBody List<CustomerRequestDto> customerRequestDtoList) {
 		return customerService.saveAllCustomers(customerRequestDtoList);
 	}
 
 	@PutMapping("/update/{id}")
 	public ResponseEntity<Customer> updateCustomer(@PathVariable(value = "id") Long CustomerId,
-			@Valid @RequestBody Customer CustomerDetails) throws ResourceNotFoundException {
+			@RequestBody Customer CustomerDetails) throws ResourceNotFoundException {
 		Customer Customer = customerRepository.findById(CustomerId)
 				.orElseThrow(() -> new ResourceNotFoundException("Customer not found for this id :: " + CustomerId));
 

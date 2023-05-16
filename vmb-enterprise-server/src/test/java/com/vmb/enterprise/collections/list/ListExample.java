@@ -6,10 +6,10 @@ import java.util.Iterator;
 public class ListExample {
 
 	/**
-	 * @param args
+	 * @author pavanvejju
 	 */
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+		
 		
 	ArrayList<String> alist=new ArrayList<String>();
 	alist.add("Pavan");
@@ -30,15 +30,15 @@ public class ListExample {
 	Iterator<Object> it=mergeList.listIterator();
 	System.out.println(":::"+mergeList);
 	try {
-		
+		while (it.hasNext()) {
+			String string = (String) it.next();
+			System.out.println(">>>"+string.toString());
+			//alist.remove(0);
+		}
 	} catch (Exception e) {
-		// TODO: handle exception
+		e.printStackTrace();
 	}
-	while (it.hasNext()) {
-		String string = (String) it.next();
-		System.out.println(">>>"+string.toString());
-		//alist.remove(0);
-	}
+	
 	
 	for(Object obj: mergeList){
 		System.out.println(obj.toString());

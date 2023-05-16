@@ -2,6 +2,7 @@ package com.vmb.enterprise.utils;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
@@ -54,4 +55,18 @@ public class CustomUtils {
 			payment.setModifiedBy(transactionRequestDto.getCreatedBy());
 		return payment;
 	}
+	
+
+	public static String prepareVideoFileName() {
+		Date date = new Date();
+		SimpleDateFormat yyyyMMdd = new SimpleDateFormat("yyyy_MM_dd");
+		SimpleDateFormat HHmm = new SimpleDateFormat("HH_mm");
+		String dateyyyyMMdd= yyyyMMdd.format(date);
+		String dateHHmm= HHmm.format(date);
+		//System.out.println(dateyyyyMMdd);
+		//System.out.println(dateHHmm);
+		
+		return dateyyyyMMdd+"/video_"+dateHHmm+".mp4";
+	}
+	
 }
