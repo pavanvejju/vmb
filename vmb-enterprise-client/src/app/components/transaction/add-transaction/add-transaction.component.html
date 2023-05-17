@@ -4,12 +4,12 @@
   <form (ngSubmit)="onSubmit()">
     <div class="form-group">
       <label for="name">Date</label>
-      <input type="text" class="form-control" id="date" required [(ngModel)]="transaction.dateStr" name="dateStr">
+      <input type="text" class="form-control" id="date" required [(ngModel)]="transaction.date" name="dateStr">
       <!-- add date picker-->
     </div>
     <div class="form-group">
       <label for="name">Customer Name</label>
-      <input type="text" class="form-control" id="customerId" required [(ngModel)]="transaction.customerId" name="customerId">
+      <input type="text" class="form-control" id="customerId" required [(ngModel)]="transaction.customer.id" name="customerId">
       <!-- <kendo-dropdownlist [data]="listItems" [textField]="'text'" [valueField]="'value'" [value]="selectedValue"></kendo-dropdownlist> 
       getAllCustomers() api for master data
       -->
