@@ -40,15 +40,16 @@ public class TransactionService implements ITransactionService{
 		List<TransactionRequestDto> transactionRequestDtoList	=	new ArrayList<TransactionRequestDto>();
 		List<Transaction>	TransactionList	=	transactionRepository.findAll();
 		for(Transaction transaction: TransactionList) {
-			TransactionRequestDto transactionRequestDto	=	new TransactionRequestDto();
-			transactionRequestDto.setAmount(transaction.getAmount());
-			transactionRequestDto.setDateStr(transaction.getDate().toLocaleString());
-			transactionRequestDto.setDescription(transaction.getDescription());
-			transactionRequestDto.setCustomerId(transaction.getCustomer().getId());
-			transactionRequestDto.setCustomerName(transaction.getCustomer().getCustomerName());
-			transactionRequestDto.setCreatedBy(transaction.getCreatedBy());
-			transactionRequestDto.setCreatedDate(transaction.getCreatedDate());
-			transactionRequestDto.setType(transaction.getType());
+			TransactionRequestDto transactionRequestDto	=	new TransactionRequestDto(
+					transaction.date().toString(),
+					transaction.type(),
+					transaction.description(),
+					transaction.amount(),
+					transaction.customer().id(),
+					transaction.customer().customerName(),
+					transaction.createdBy(),
+					transaction.createdDate().toString()
+					);
 			transactionRequestDtoList.add(transactionRequestDto);
 		}
 		return transactionRequestDtoList;	
@@ -61,26 +62,24 @@ public class TransactionService implements ITransactionService{
 		SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
 
         try {
-            Date date = formatter.parse(transactionRequestDto.getDateStr());
+            Date date = formatter.parse(transactionRequestDto.dateStr());
             System.out.println(formatter.format(date));
 	        
-			Customer customer	=	customerRepository.findById(transactionRequestDto.getCustomerId()).orElse(null);
+			Customer customer	=	customerRepository.findById(transactionRequestDto.customerId()).orElse(null);
 			if(customer!=null) {
-				Payment payment	=	paymentRepository.findByCustomerId(customer.getId());
+				Payment payment	=	paymentRepository.findByCustomerId(customer.id());
 				if(payment!=null) {
 					Payment payment1 = CustomUtils.constructDtoToPaymentByTransaction(transactionRequestDto, payment);
 					paymentRepository.saveAndFlush(payment1);
 					
-					Transaction transaction	=	new Transaction();
-					transaction.setPayment(payment1);
-					transaction.setCustomer(customer);
-					transaction.setAmount(transactionRequestDto.getAmount());
-					transaction.setDescription(transactionRequestDto.getDescription());
-					transaction.setDate(date);
-					transaction.setType(transactionRequestDto.getType());
-					transaction.setCreatedDate(new Timestamp(System.currentTimeMillis()));
-					transaction.setCreatedBy(transactionRequestDto.getCreatedBy());
-					
+					Transaction transaction	=	new Transaction(0, date,
+							transactionRequestDto.type(),
+							transactionRequestDto.description(),
+							transactionRequestDto.amount(),
+							transactionRequestDto.createdBy(),
+							new Timestamp(System.currentTimeMillis()),
+							customer, payment1
+							);
 					return transactionRepository.saveAndFlush(transaction);
 				}
 			}
@@ -97,7 +96,6 @@ public class TransactionService implements ITransactionService{
 		for(TransactionRequestDto transactionRequestDto:transactionRequestDtoList) {
 			saveTransaction(transactionRequestDto);
 		}
-		
 		return "SUCCESS";
 	}
 }

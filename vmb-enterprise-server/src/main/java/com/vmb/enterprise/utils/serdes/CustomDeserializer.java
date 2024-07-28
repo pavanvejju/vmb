@@ -8,8 +8,6 @@ import org.apache.kafka.common.serialization.Deserializer;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.vmb.enterprise.dto.VideoDto;
 
-import lombok.extern.slf4j.Slf4j;
-@Slf4j
 public class CustomDeserializer implements Deserializer<VideoDto> {
 	private ObjectMapper objectMapper = new ObjectMapper();
 

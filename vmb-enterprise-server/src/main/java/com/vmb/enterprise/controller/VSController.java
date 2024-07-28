@@ -3,7 +3,6 @@ package com.vmb.enterprise.controller;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.UUID;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,11 +48,7 @@ public class VSController {
 	
 	 @RequestMapping(value = "/publish_kafka", method = RequestMethod.POST)
 	    public String sendMessageToKafkaConsumer(@RequestParam String message){
-	        MessageItem messageItem = new MessageItem();
-	        messageItem.setMessage(message);
-	        messageItem.setUuid(UUID.randomUUID().toString());
-	        messageItem.setTime(LocalDateTime.now().toString());
-
+	        MessageItem messageItem = new MessageItem(message, UUID.randomUUID().toString(),LocalDateTime.now().toString());
 	        LOG.info("New message: '{}'", messageItem);
 	        kafkaProducerService.send(messageItem);
 	        return "redirect:kafka_producer.html";
@@ -63,8 +58,5 @@ public class VSController {
 	 public String hello()   
 	 {  
 	 return "Hello User";  
-	 }  
-	
-	
-	
+	 }
 }

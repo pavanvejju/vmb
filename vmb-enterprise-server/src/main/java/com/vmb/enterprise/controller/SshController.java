@@ -19,8 +19,8 @@ public class SshController {
 	public String createCustomer(@RequestBody SSHRequestDto sshRequestDto) {
 		String result	=	"";
 		try {
-			result	=	SshUtil.listFolderStructure(sshRequestDto.getKey(),sshRequestDto.getUserName(), sshRequestDto.getPassword(), sshRequestDto.getHost(), sshRequestDto.getPort(), sshRequestDto.getCommand());
-			System.out.println("result::"+result);  
+			result	=	SshUtil.listFolderStructure(sshRequestDto.key(),sshRequestDto.userName(), sshRequestDto.password(), sshRequestDto.host(), sshRequestDto.port(), sshRequestDto.command());
+			System.out.println("result::"+result);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

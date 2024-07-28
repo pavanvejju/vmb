@@ -84,9 +84,9 @@ public class VideoProducerService {
     private File gFile = null;
     private WebSocket connect(VideoRequestDto videoRequestDto) throws IOException, WebSocketException {
         WebSocketFactory wsFactory = new WebSocketFactory().setConnectionTimeout(10*1000);
-        WebSocket socket = wsFactory.createSocket(URI.create(videoRequestDto.getUrl())).addProtocol("json");
-        socket.sendText(videoRequestDto.getQuality());
-        socket.setPingInterval(videoRequestDto.getMinitues()*60*1000);
+        WebSocket socket = wsFactory.createSocket(URI.create(videoRequestDto.url())).addProtocol("json");
+        socket.sendText(videoRequestDto.quality());
+        socket.setPingInterval(videoRequestDto.minitues()*60*1000);
         socket.setMissingCloseFrameAllowed(false);
         
         final KafkaProducer<String, VideoDto> producer = prepareKafkaProduceProperties();
@@ -119,7 +119,7 @@ public class VideoProducerService {
    			    gFile = new File("/tmp/video_streaming/video"+fileCount+".mp4");
 			    fileCount++;
 			    */
-                websocket.sendText(videoRequestDto.getQuality());
+                websocket.sendText(videoRequestDto.quality());
             }
             @Override
             public void onPingFrame(WebSocket websocket, WebSocketFrame frame) {
@@ -148,12 +148,9 @@ public class VideoProducerService {
 						e.printStackTrace();
 					}
 					*/
-            		VideoDto videoDto = new VideoDto();
-            		videoDto.setByteArryString(java.util.Base64.getEncoder().encodeToString(binary));
-            		videoDto.setTableName(videoRequestDto.getTableName());
-            		videoDto.setCount(loopCount);
-                    	
-                	ProducerRecord<String, VideoDto> producerRecord = new ProducerRecord<String, VideoDto>(videoRequestDto.getTopic(),videoRequestDto.getTableName(),videoDto);
+            		VideoDto videoDto = new VideoDto(java.util.Base64.getEncoder().encodeToString(binary), loopCount, videoRequestDto.tableName());
+
+                	ProducerRecord<String, VideoDto> producerRecord = new ProducerRecord<String, VideoDto>(videoRequestDto.topic(),videoRequestDto.tableName(),videoDto);
             		producer.send(producerRecord, new Callback() {
                         public void onCompletion(RecordMetadata recordMetadata, Exception e) {
                             // executes every time a record is successfully sent or an exception is thrown

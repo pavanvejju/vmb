@@ -17,7 +17,7 @@ public enum ErrorCodeEnum {
 	public final String strCode;
 	public final String description;
 
-    private ErrorCodeEnum(int code, String strCode, String description) {
+    ErrorCodeEnum(int code, String strCode, String description) {
  		this.code	=	code;
  		this.strCode	=	strCode;
  		this.description	=	description;

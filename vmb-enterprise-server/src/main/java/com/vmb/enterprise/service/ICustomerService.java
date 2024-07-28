@@ -1,18 +1,13 @@
 package com.vmb.enterprise.service;
 
-import java.util.List;
-
 import com.vmb.enterprise.dto.CustomerRequestDto;
 import com.vmb.enterprise.model.Customer;
 
+import java.util.List;
+
 public interface ICustomerService {
-	
-	
-	public Customer updateUser(Long id, String status);
-	
-	public List<Customer> fetchAllCustomers();
-
-	public void save(CustomerRequestDto customerRequestDto);
-
-	public String saveAllCustomers(List<CustomerRequestDto> customerRequestDtoList);
+	Customer updateUser(Long id, String status);
+	List<Customer> fetchAllCustomers();
+	void save(CustomerRequestDto customerRequestDto);
+	String saveAllCustomers(List<CustomerRequestDto> customerRequestDtoList);
 }

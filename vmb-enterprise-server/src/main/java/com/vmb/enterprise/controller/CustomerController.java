@@ -61,21 +61,22 @@ public class CustomerController {
 
 	@PutMapping("/update/{id}")
 	public ResponseEntity<Customer> updateCustomer(@PathVariable(value = "id") Long CustomerId,
-			@RequestBody Customer CustomerDetails) throws ResourceNotFoundException {
-		Customer Customer = customerRepository.findById(CustomerId)
+			@RequestBody Customer customerDetails) throws ResourceNotFoundException {
+		Customer customer = customerRepository.findById(CustomerId)
 				.orElseThrow(() -> new ResourceNotFoundException("Customer not found for this id :: " + CustomerId));
 
-		Customer.setFirstName(CustomerDetails.getFirstName());
-		Customer.setMiddleName(CustomerDetails.getMiddleName());
-		Customer.setLastName(CustomerDetails.getLastName());
-		Customer.setEmailId(CustomerDetails.getEmailId());
-		Customer.setPhoneNumber(CustomerDetails.getPhoneNumber());
-		Customer.setVillage(CustomerDetails.getVillage());
-		Customer.setMandal(CustomerDetails.getMandal());
-		Customer.setPincode(CustomerDetails.getPincode());
-		Customer.setAddress(CustomerDetails.getAddress());
-		
-		final Customer updatedCustomer = customerRepository.save(Customer);
+		customer.customerWithFLME(
+				customerDetails.firstName(),
+				customerDetails.middleName(),
+				customerDetails.lastName(),
+				customerDetails.emailId(),
+				customerDetails.phoneNumber(),
+				customerDetails.village(),
+				customerDetails.mandal(),
+				customerDetails.pincode(),
+				customerDetails.address());
+
+		final Customer updatedCustomer = customerRepository.save(customer);
 		return ResponseEntity.ok(updatedCustomer);
 	}
 

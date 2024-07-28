@@ -9,9 +9,7 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.function.Consumer;
 
-import javax.annotation.PostConstruct;
-
-import org.apache.commons.io.FileUtils;
+import jakarta.annotation.PostConstruct;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
@@ -21,7 +19,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 
 import com.google.gson.Gson;
@@ -101,50 +98,50 @@ public class VideoConsumerService {
                 records.forEach(new Consumer<ConsumerRecord<String, VideoDto>>() {
 					public void accept(ConsumerRecord<String, VideoDto> record) {
 						VideoDto videoDto	=	record.value();
-					    byte[] binary = java.util.Base64.getDecoder().decode(videoDto.getByteArryString());
+					    byte[] binary = java.util.Base64.getDecoder().decode(videoDto.byteArryString());
 					    if(!new File(parentFolder).isDirectory()) {
                 			new File(parentFolder).mkdir();
                 		}
-					    System.out.print(videoDto.getCount()+",");
+					    System.out.print(videoDto.count()+",");
 					    
-					    if(!tableMap.containsKey(videoDto.getTableName()+"_file_name")) {
-					    	tableMap.put(videoDto.getTableName()+"_file_name", null);
+					    if(!tableMap.containsKey(videoDto.tableName()+"_file_name")) {
+					    	tableMap.put(videoDto.tableName()+"_file_name", null);
 					    }
-					    if(!tableMap.containsKey(videoDto.getTableName()+"_file")) {
-					    	tableMap.put(videoDto.getTableName()+"_file", null);
+					    if(!tableMap.containsKey(videoDto.tableName()+"_file")) {
+					    	tableMap.put(videoDto.tableName()+"_file", null);
 					    }
 					    
-					    if(videoDto.getCount() == 0) {
+					    if(videoDto.count() == 0) {
 					    	
-					    	if( tableMap.get(videoDto.getTableName()+"_file")!=null &&  ((File)tableMap.get(videoDto.getTableName()+"_file")).exists()) {
+					    	if( tableMap.get(videoDto.tableName()+"_file")!=null &&  ((File)tableMap.get(videoDto.tableName()+"_file")).exists()) {
 		                			try {
-										s3Service.uploadVideos(videoDto.getTableName()+"/"+tableMap.get(videoDto.getTableName()+"_file_name"), file);
+										s3Service.uploadVideos(videoDto.tableName()+"/"+tableMap.get(videoDto.tableName()+"_file_name"), file);
 									} catch (IOException e) {
 										// TODO Auto-generated catch block
 										e.printStackTrace();
 									}
 					    	}
 					    	
-					    	String subFolder	=	parentFolder+videoDto.getTableName();
+					    	String subFolder	=	parentFolder+videoDto.tableName();
 	                		if(!new File(subFolder).isDirectory()) {
 	                			new File(subFolder).mkdir();
 	                		}
-	                		tableMap.put(videoDto.getTableName()+"_file_name", CustomUtils.prepareVideoFileName());
+	                		tableMap.put(videoDto.tableName()+"_file_name", CustomUtils.prepareVideoFileName());
 //	                		constructedFileName	=	CustomUtils.prepareVideoFileName();
-	                		String filePath	=	subFolder+"/"+tableMap.get(videoDto.getTableName()+"_file");
+	                		String filePath	=	subFolder+"/"+tableMap.get(videoDto.tableName()+"_file");
 	                		System.out.println("filePath>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"+filePath);
 	                		if(!new File(filePath).isFile()) {
-	                			tableMap.put(videoDto.getTableName()+"_file", new File(filePath));
+	                			tableMap.put(videoDto.tableName()+"_file", new File(filePath));
 	                			log.info(filePath);
 	                		}
 					    }
 	                	
-	                	try {
-	                		if(tableMap.get(videoDto.getTableName()+"_file") != null)
-	                			FileUtils.writeByteArrayToFile((File)tableMap.get(videoDto.getTableName()+"_file"), binary, true);
+	                	/*try {
+	                		if(tableMap.get(videoDto.tableName()+"_file") != null)
+	                			FileUtils.writeByteArrayToFile((File)tableMap.get(videoDto.tableName()+"_file"), binary, true);
 						} catch (IOException e) {
 							e.printStackTrace();
-						}
+						}*/
 					}
 				});
                 
@@ -167,18 +164,18 @@ public class VideoConsumerService {
     	VideoDto videoDto = g.fromJson(videoDtoStr, VideoDto.class);
 
 		
-	    byte[] binary = java.util.Base64.getDecoder().decode(videoDto.getByteArryString());
+	    byte[] binary = java.util.Base64.getDecoder().decode(videoDto.byteArryString());
 	    if(!new File(parentFolder).isDirectory()) {
 			new File(parentFolder).mkdir();
 		}
-	    System.out.print(videoDto.getCount()+",");
+	    System.out.print(videoDto.count()+",");
 	   
-	    if(!tableMap.containsKey(videoDto.getTableName())) {
-	    	tableMap.put(videoDto.getTableName(), null);
+	    if(!tableMap.containsKey(videoDto.tableName())) {
+	    	tableMap.put(videoDto.tableName(), null);
 	    }
-	    String fileExists	=	(String)tableMap.get(videoDto.getTableName());
+	    String fileExists	=	(String)tableMap.get(videoDto.tableName());
 	    if(fileExists==null) {
-	    	String subFolder	=	parentFolder+videoDto.getTableName();
+	    	String subFolder	=	parentFolder+videoDto.tableName();
     		if(!new File(subFolder).isDirectory()) {
     			new File(subFolder).mkdir();
     		}
@@ -189,16 +186,16 @@ public class VideoConsumerService {
     			file = new File(filePath);
     			log.info("FilePath>>>2222>>"+filePath);
     		}
-    		tableMap.put(videoDto.getTableName(), constructedFileName);
+    		tableMap.put(videoDto.tableName(), constructedFileName);
 	    }
     	
     	try {
     		
     		 if(file != null) {
-             	FileUtils.writeByteArrayToFile(file, binary, true);
-             	if(videoDto.getCount() == 0) {
-             		s3Service.uploadVideos(videoDto.getTableName()+"/"+(String)tableMap.get(videoDto.getTableName()), file);
-             		tableMap.put(videoDto.getTableName(), null);
+             	//FileUtils.writeByteArrayToFile(file, binary, true);
+             	if(videoDto.count() == 0) {
+             		s3Service.uploadVideos(videoDto.tableName()+"/"+(String)tableMap.get(videoDto.tableName()), file);
+             		tableMap.put(videoDto.tableName(), null);
              	}
     		 }
     			

@@ -12,7 +12,7 @@ public enum CustomerStatusEnum {
 		public final int code;
 		public final String strCode;
 		public final String description;
-	    private CustomerStatusEnum(String strCode,int code,  String description) {
+	    CustomerStatusEnum(String strCode,int code,  String description) {
 	 		
 	 		this.strCode	=	strCode;
 	 		this.code	=	code;

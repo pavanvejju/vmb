@@ -28,22 +28,22 @@ public class PaymentService  implements IPaymentService{
 		List<PaymentRequestDto>	paymentRequestDtoList	=	new ArrayList<PaymentRequestDto>();
 		List<Payment> paymentList	=	paymentRepository.findAll();
 		for(Payment payment: paymentList) {
-			PaymentRequestDto paymentRequestDto	=	new PaymentRequestDto();
-			paymentRequestDto.setCreatedBy(payment.getCreatedBy());
-			paymentRequestDto.setModifiedBy(payment.getModifiedBy());
-			paymentRequestDto.setCreatedDate(sdfr.format(payment.getCreatedDate()));
-			paymentRequestDto.setModifiedDate(sdfr.format(payment.getModifiedDate()));
-			paymentRequestDto.setStartDate(sdfr.format(payment.getStartDate()));
-			paymentRequestDto.setEndDate(sdfr.format(payment.getEndDate()));
-			paymentRequestDto.setTotalCreditAmount(payment.getTotalCreditAmount().toString());
-			paymentRequestDto.setCurrentOutstanding(payment.getCurrentOutstanding().toString());
-			paymentRequestDto.setTotalInstallments(payment.getTotalInstallments());
-			paymentRequestDto.setPendingInstallments(payment.getPendingInstallments());
-			paymentRequestDto.setId(payment.getId());
-			paymentRequestDto.setRateOfInterest(payment.getRateOfInterest().toString());
-			CustomerRequestDto customerRequestDto	=	new CustomerRequestDto();
-			customerRequestDto.setCustomerName(payment.getCustomer().getCustomerName());
-			paymentRequestDto.setCustomerRequestDto(customerRequestDto);
+			CustomerRequestDto customerRequestDto	=	new CustomerRequestDto(payment.customer().customerName());
+			PaymentRequestDto paymentRequestDto	=	new PaymentRequestDto(
+					payment.id(),
+					sdfr.format(payment.startDate()),
+					sdfr.format(payment.endDate()),
+					payment.totalCreditAmount().toString(),
+					payment.currentOutstanding().toString(),
+					payment.rateOfInterest().toString(),
+					payment.totalInstallments(),
+					payment.pendingInstallments(),
+					payment.createdBy(),
+					sdfr.format(payment.createdDate()),
+					payment.modifiedBy(),
+					sdfr.format(payment.modifiedDate()),
+					customerRequestDto
+			);
 			paymentRequestDtoList.add(paymentRequestDto);
 		}
 		return	paymentRequestDtoList; 	

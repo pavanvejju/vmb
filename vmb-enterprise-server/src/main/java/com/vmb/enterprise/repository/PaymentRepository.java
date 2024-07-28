@@ -7,7 +7,5 @@ import com.vmb.enterprise.model.Payment;
 
 @Repository
 public interface PaymentRepository extends JpaRepository<Payment, Long>{
-	
-	public Payment findByCustomerId(Long customerId);
-	
+	Payment findByCustomerId(Long customerId);
 }
