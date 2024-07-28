@@ -2,8 +2,6 @@ package com.vmb.enterprise.utils;
 
 import java.io.ByteArrayOutputStream;
 
-import org.apache.commons.lang3.StringUtils;
-
 import com.jcraft.jsch.ChannelExec;
 import com.jcraft.jsch.JSch;
 import com.jcraft.jsch.Session;

@@ -1,7 +1,9 @@
 package com.vmb.enterprise.collections.list;
 
 import java.util.ArrayList;
-import java.util.Collections;
+
+import static java.util.Collections.reverseOrder;
+import static java.util.Collections.sort;
 
 
 /**
@@ -9,8 +11,8 @@ import java.util.Collections;
  * */
 public class ListSorting {
 
-	public static void main(String args[]) {
-		ArrayList<String> arraylist = new ArrayList<String>();
+	public static void main(String[] args) {
+		ArrayList<String> arraylist = new ArrayList<>();
 			arraylist.add("AA");
 			arraylist.add("ZZ");
 			arraylist.add("CC");
@@ -22,7 +24,7 @@ public class ListSorting {
 		//Collections.sort(arraylist);
 		
 		/* Sorting in descending order */
-		Collections.sort(arraylist, Collections.reverseOrder());
+		arraylist.sort(reverseOrder());
 		System.out.println("ArrayList in descending order:"+arraylist);
 	}
 }

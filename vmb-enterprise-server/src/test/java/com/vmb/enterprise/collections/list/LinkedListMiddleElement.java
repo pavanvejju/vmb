@@ -6,7 +6,7 @@ package com.vmb.enterprise.collections.list;
 public class LinkedListMiddleElement {
   
   
-    public static void main(String args[]) {
+    public static void main(String... args) {
         //creating LinkedList with 5 elements including head
       LinkedList linkedList = new LinkedList();
       LinkedList.Node head = linkedList.head();
@@ -41,7 +41,7 @@ public class LinkedListMiddleElement {
 }
 
 class LinkedList{
-    private Node head;
+    private final Node head;
     private Node tail;
   
     public LinkedList(){
@@ -65,7 +65,7 @@ class LinkedList{
         public Node(String data){
             this.data = data;
         }
-      
+
         public String data() {
             return data;
         }
@@ -81,7 +81,7 @@ class LinkedList{
         public void setNext(Node next) {
             this.next = next;
         }
-      
+
         public String toString(){
             return this.data;
         }

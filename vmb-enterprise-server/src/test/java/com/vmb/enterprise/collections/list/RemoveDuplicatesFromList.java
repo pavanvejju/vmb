@@ -9,7 +9,7 @@ import java.util.List;
 public class RemoveDuplicatesFromList {
 
 	public static void main(String[] args) {
-		List<String> duplicateList=new ArrayList<String>();
+		List<String> duplicateList=new ArrayList<>();
 		duplicateList.add("I");
 		duplicateList.add("am");
 		duplicateList.add("very");
@@ -18,18 +18,18 @@ public class RemoveDuplicatesFromList {
 		duplicateList.add("very");
 		
 		System.out.println("Remove duplicates");
-		duplicateList.stream().distinct().forEach(i->System.out.println(i));
+		duplicateList.stream().distinct().forEach(System.out::println);
 		System.out.println("Remove duplicates");
-		new HashSet<String>(duplicateList).stream().forEach(i->System.out.println(i+"=="+Collections.frequency(duplicateList, i)));
+		new HashSet<>(duplicateList).forEach(i->System.out.println(i+"=="+Collections.frequency(duplicateList, i)));
 		
 		
 System.out.println("Above output is from java8");
 		//Converting ArrayList to HashSet to remove duplicates
-		HashSet<String> hashSet=new HashSet<String>(duplicateList);
+		HashSet<String> hashSet=new HashSet<>(duplicateList);
 		System.out.println("duplicateList  size========"+duplicateList.size());
 		//Creating Arraylist without duplicate values
-		List<String> listWithoutduplicates=new ArrayList<String>(hashSet);
-		System.out.println("listWithOutduplicates  size==========="+listWithoutduplicates.size());
+		List<String> listWithOutDuplicates=new ArrayList<>(hashSet);
+		System.out.println("listWithOutDuplicates  size==========="+listWithOutDuplicates.size());
 		
 		for(String str:duplicateList){
 			System.out.println(str+"----:"+Collections.frequency(duplicateList, str));
@@ -39,7 +39,7 @@ System.out.println("Above output is from java8");
         {  
             System.out.println(str1);  
         }  
-        ArrayList<String> al2 = new ArrayList<String>();  
+        ArrayList<String> al2 = new ArrayList<>();
         for(String str2:duplicateList)  
         {  
             if(!al2.equals(duplicateList))          
