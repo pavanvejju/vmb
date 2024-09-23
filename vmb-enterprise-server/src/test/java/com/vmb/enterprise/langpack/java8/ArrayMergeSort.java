@@ -52,10 +52,5 @@ public class ArrayMergeSort {
 		.stream().reduce(1000, (x,y)->x+y);
 		
 		System.out.println("abc::"+abc);
-
-		
-		
-
 	}
-
 }

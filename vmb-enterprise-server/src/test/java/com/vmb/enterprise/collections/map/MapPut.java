@@ -16,8 +16,11 @@ public class MapPut {
 		System.out.println(m.put("2", 1));
 		System.out.println(m.put("1", 1));  // previous key-value will return
 		System.out.println(m);
-		
-		
-	}
 
+		HashMap<String, Integer> map = new HashMap<>();
+		map.put("CS",8);
+		map.computeIfAbsent("CA", key -> 10);
+		map.computeIfPresent("CS", (k,v) -> v);
+		System.out.print("map::"+map);
+	}
 }

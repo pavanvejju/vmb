@@ -17,14 +17,5 @@ public class Base64Enc {
 		Base64.Decoder decoder	=	Base64.getDecoder();
 		byte[] decodedStr	=	decoder.decode(encodedStr);
 		System.out.println("decodedStr::"+new String(decodedStr));
-		
-		
-		List<String> alphabets = Arrays.asList(new String[]{"a","b","b","d"});
-        
-        alphabets.stream().map(String::toUpperCase).forEach(System.out::println);
-		
-		
-		
 	}
-
 }

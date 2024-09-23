@@ -8,7 +8,7 @@ public class VmbRouteBuilder extends RouteBuilder{
 	public void configure() throws Exception {
 		// TODO Auto-generated method stub
 		
-		String topicName = "topic=sample_topic";
+		String topicName = "topic=sample-topic";
 		String kafkaServer = "kafka:localhost:9092";
 		String zooKeeperHost = "zookeeperHost=localhost&zookeeperPort=2181";
 		String serializerClass = "serializerClass=com.vmb.enterprise.utils.CustomSerializer";

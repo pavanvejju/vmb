@@ -31,12 +31,17 @@ public class StreamIterate {
 		memberNames.add("Lokesh");
 		
 		
-		Stream<Integer> streamIterated = Stream.iterate(1,n -> n + 1).limit(20);
+		Stream<Integer> streamIterated = Stream.iterate(2,n -> n + 1).limit(20);
 		System.out.println(streamIterated.collect(Collectors.toList()));
 		
 		
-		IntStream intStream = IntStream.rangeClosed(1, 3);
+		IntStream intStreamClosed = IntStream.rangeClosed(1, 3);
+		System.out.println(intStreamClosed.sum());
+
+		IntStream intStream = IntStream.range(1, 4);
 		System.out.println(intStream.sum());
+
+
 		
 		
 	}
