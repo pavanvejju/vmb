@@ -48,7 +48,7 @@ public class VSController {
 	
 	 @RequestMapping(value = "/publish_kafka", method = RequestMethod.POST)
 	    public String sendMessageToKafkaConsumer(@RequestParam String message){
-	        MessageItem messageItem = new MessageItem(message, UUID.randomUUID().toString(),LocalDateTime.now().toString());
+	        MessageItem messageItem = new MessageItem(UUID.randomUUID().toString(),message,LocalDateTime.now().toString());
 	        LOG.info("New message: '{}'", messageItem);
 	        kafkaProducerService.send(messageItem);
 	        return "redirect:kafka_producer.html";

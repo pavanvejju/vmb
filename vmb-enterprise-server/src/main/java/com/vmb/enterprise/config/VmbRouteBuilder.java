@@ -1,10 +1,10 @@
 package com.vmb.enterprise.config;
 
-import org.apache.camel.builder.RouteBuilder;
 
-public class VmbRouteBuilder extends RouteBuilder{
+public class VmbRouteBuilder //extends RouteBuilder
+{
 
-	@Override
+//	@Override
 	public void configure() throws Exception {
 		// TODO Auto-generated method stub
 		
@@ -17,7 +17,7 @@ public class VmbRouteBuilder extends RouteBuilder{
 				.append(zooKeeperHost).append("&").append(serializerClass).toString();
 
 		
-		from("file:/tmp/inbox?noop=true").split().tokenize("\n").to(toKafka);
+		//from("file:/tmp/inbox?noop=true").split().tokenize("\n").to(toKafka);
 		
 		/*
 		@Override
