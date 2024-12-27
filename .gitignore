@@ -1,7 +1,6 @@
-vmb-enterprise-server/.classpath
-vmb-enterprise-server/.factorypath
-vmb-enterprise-server/.project
-vmb-enterprise-server/.settings
 vmb-enterprise-server/target
+vmb-enterprise-server/.*
+vmb-enterprise-client/.*
+mysql
+.idea
 .metadata/
-vmb-enterprise-client/.angular

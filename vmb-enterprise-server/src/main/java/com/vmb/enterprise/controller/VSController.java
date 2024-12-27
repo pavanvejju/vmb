@@ -6,11 +6,7 @@ import java.util.UUID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.neovisionaries.ws.client.WebSocketException;
 import com.vmb.enterprise.dto.VideoRequestDto;
@@ -46,13 +42,21 @@ public class VSController {
 		
 	}
 	
-	 @RequestMapping(value = "/publish_kafka", method = RequestMethod.POST)
-	    public String sendMessageToKafkaConsumer(@RequestParam String message){
-	        MessageItem messageItem = new MessageItem(UUID.randomUUID().toString(),message,LocalDateTime.now().toString());
-	        LOG.info("New message: '{}'", messageItem);
-	        kafkaProducerService.send(messageItem);
-	        return "redirect:kafka_producer.html";
-	    }
+	@PostMapping(value = "/publish_kafka1")
+	public String publishKafkaMessage1(@RequestParam String message){
+		MessageItem messageItem = new MessageItem(UUID.randomUUID().toString(),message,LocalDateTime.now().toString());
+		LOG.info("New message to topic1: '{}'", messageItem);
+		kafkaProducerService.send1(messageItem);
+		return "Successfully sent message to topic 1";
+	}
+
+	@PostMapping(value = "/publish_kafka2")
+	public String publishKafkaMessage2(@RequestParam String message){
+		MessageItem messageItem = new MessageItem(UUID.randomUUID().toString(),message,LocalDateTime.now().toString());
+		LOG.info("New message to topic2: '{}'", messageItem);
+		kafkaProducerService.send2(messageItem);
+		return "Successfully sent message to topic 2";
+	}
 	 
 	 @RequestMapping("/")  
 	 public String hello()   

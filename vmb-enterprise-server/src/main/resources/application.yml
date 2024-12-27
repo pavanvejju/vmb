@@ -10,14 +10,43 @@ spring:
   kafka:
     bootstrap-servers: localhost:9092
     consumer:
-      group-id: bi_vs_consumer
+      #group-id: bi_vs_consumer
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        security.protocol: PLAINTEXT
+        spring.json.trusted.packages: "*"
     topic:
-      message: sample-topic
+      message1: sample-topic-1
+      message2: sample-topic-2
     properties:
-      security.protocol: PLAINTEXT
+      telemetry.enabled: false
+  cloud:
+    function:
+      definition: firstConsumer;secondConsumer
+    stream:
+      default-binder: kafka
+      function:
+        definition: firstConsumer;secondConsumer
+      kafka:
+        binder:
+          brokers: localhost:9092
+      bindings:
+        firstConsumer-in-0:
+          destination: sample-topic-1
+          group: bi_vs_consumer_group1
+        secondConsumer-in-0:
+          destination: sample-topic-2
+          group: bi_vs_consumer_group2
   mvc:
     pathmatch:
       matching-strategy: ANT_PATH_MATCHER
+logging:
+  level:
+    org.springframework.cloud.stream: DEBUG
+    org.apache.kafka: WARN
+    org.apache.kafka.clients.consumer: DEBUG
+    org.springframework.kafka: WARN
 #zookeeper start: bin/zookeeper-server-start.sh config/zookeeper.properties
 #kafka start: bin/kafka-server-start.sh config/server.properties
 #cmak start cd /home/kafka/Downloads/CMAK/target/universal/cmak-3.0.0.7/0

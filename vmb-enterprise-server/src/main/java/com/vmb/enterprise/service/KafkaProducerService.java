@@ -13,14 +13,27 @@ public class KafkaProducerService {
 
     private static final Logger LOG = LoggerFactory.getLogger(KafkaProducerService.class);
 
-    @Value("${spring.kafka.topic.message}")
-    private String topic;
+    @Value("${spring.kafka.topic.message1}")
+    private String topic1;
+
+    @Value("${spring.kafka.topic.message2}")
+    private String topic2;
 
     @Autowired
     private KafkaTemplate<String, MessageItem> kafkaTemplate;
 
-    public void send(MessageItem messageItem){
-        LOG.info("Sent By Kafka");
-        kafkaTemplate.send(topic, messageItem);
+    public void send1(MessageItem messageItem){
+        LOG.info("Sent By Kafka topic 1");
+        kafkaTemplate.send(topic1, messageItem);
     }
+
+    public void send2(MessageItem messageItem){
+        LOG.info("Sent By Kafka topic 2");
+        kafkaTemplate.send(topic2, messageItem);
+    }
+
+    /*@Bean
+    public Supplier<String> messageSupplier() {
+        return ()->"test supplier";
+    }*/
 }

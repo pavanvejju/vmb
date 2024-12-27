@@ -63,7 +63,7 @@ public class VideoConsumerService {
 	    return new KafkaConsumer<String, VideoDto>(props);
 	}
     
-    @PostConstruct
+    //@PostConstruct
 	public void createKafkaConsumer() {
 		
 		consumer = prepareKafkaConsumerProperties();
