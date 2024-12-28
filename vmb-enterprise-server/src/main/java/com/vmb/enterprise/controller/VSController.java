@@ -44,17 +44,13 @@ public class VSController {
 	
 	@PostMapping(value = "/publish_kafka1")
 	public String publishKafkaMessage1(@RequestParam String message){
-		MessageItem messageItem = new MessageItem(UUID.randomUUID().toString(),message,LocalDateTime.now().toString());
-		LOG.info("New message to topic1: '{}'", messageItem);
-		kafkaProducerService.send1(messageItem);
+		kafkaProducerService.send1(message);
 		return "Successfully sent message to topic 1";
 	}
 
 	@PostMapping(value = "/publish_kafka2")
 	public String publishKafkaMessage2(@RequestParam String message){
-		MessageItem messageItem = new MessageItem(UUID.randomUUID().toString(),message,LocalDateTime.now().toString());
-		LOG.info("New message to topic2: '{}'", messageItem);
-		kafkaProducerService.send2(messageItem);
+		kafkaProducerService.send2(message);
 		return "Successfully sent message to topic 2";
 	}
 	 

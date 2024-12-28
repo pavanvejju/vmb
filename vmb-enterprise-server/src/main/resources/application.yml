@@ -23,21 +23,35 @@ spring:
       telemetry.enabled: false
   cloud:
     function:
-      definition: firstConsumer;secondConsumer
+      definition: produceMessage1;produceMessage2;firstConsumer;secondConsumer
     stream:
       default-binder: kafka
       function:
-        definition: firstConsumer;secondConsumer
+        definition: produceMessage1;produceMessage2;firstConsumer;secondConsumer
       kafka:
         binder:
+          consumer-properties:
+            key.deserializer: org.springframework.kafka.support.serializer.ErrorHandlingDeserializer
+            value.deserializer: org.springframework.kafka.support.serializer.ErrorHandlingDeserializer
+            spring.deserializer.key.delegate.class: org.apache.kafka.common.serialization.StringDeserializer
+            spring.deserializer.value.delegate.class: org.springframework.kafka.support.serializer.JsonDeserializer
+            spring.json.default.value.type: com.vmb.enterprise.model.MessageItem
           brokers: localhost:9092
+          configuration:
+            spring.json.default.value.type: com.vmb.enterprise.model.MessageItem
       bindings:
+        produceMessage1-out-0:
+          destination: sample-topic-1
+        produceMessage2-out-0:
+          destination: sample-topic-2
         firstConsumer-in-0:
           destination: sample-topic-1
           group: bi_vs_consumer_group1
+          error-destination: sample-topic-dlq
         secondConsumer-in-0:
           destination: sample-topic-2
           group: bi_vs_consumer_group2
+          error-destination: sample-topic-dlq
   mvc:
     pathmatch:
       matching-strategy: ANT_PATH_MATCHER

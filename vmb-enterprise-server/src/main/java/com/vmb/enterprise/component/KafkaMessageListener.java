@@ -1,5 +1,6 @@
 package com.vmb.enterprise.component;
 
+import com.vmb.enterprise.model.MessageItem;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
@@ -21,19 +22,13 @@ public class KafkaMessageListener {
        // messagingTemplate.convertAndSend("/topic.socket.kafka", messageItem);
     }*/
 
-    /*@KafkaListener(topics = "${spring.kafka.topic.message}")
-    public void receive1(Message<MessageItem> message){
-        LOG.info("Kafka: receiver 2 message Payload = {}", message );
-        // messagingTemplate.convertAndSend("/topic.socket.kafka", messageItem);
-    }*/
-
     @Bean
-    public Consumer<String> firstConsumer() {
+    public Consumer<MessageItem> firstConsumer() {
         return message -> LOG.info("First Consumer received: " + message);
     }
 
     @Bean
-    public Consumer<String> secondConsumer() {
+    public Consumer<MessageItem> secondConsumer() {
         return message -> LOG.info("Second Consumer received: " + message);
     }
 
